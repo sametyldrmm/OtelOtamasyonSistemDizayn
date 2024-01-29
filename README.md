@@ -37,7 +37,7 @@ Bu başlık altında yapmış olduğum tasarımları. Bakış açımı. Bir sist
 2) Backend     DB - Restful Api - Swagger                       NestJS
 3) Backend     Loger                                            Java Apache Kafka
 4) Backend     STM32 Communaction                               Java 
-5) Elektronik  Stm32 c
+5) Elektronik  Stm32                                            c
 
 Sistemin frontend kısmındaki tasarımlarını burada yürüttüğüm mantık altında şekkillendiriyor olacağız.
 
@@ -50,25 +50,32 @@ Kurgu ile ilgili detaylar. Frontend klosörü içerisinde bulabilirsiniz.
 
 ## Bacnkend NestJS
 ```
-1) device/
-2) device-config-all-stm-modüle-partition/
-3) device-config-basic/
-4) device-config-knx/
-5) device-config-rs485/
-6) device-config-schematic/
-7) device-config-schematic-room/
-8) device-room/
-9) env/
-10) java-communication/
-11) otel-config/
-12) otel-config-bacnet/
-13) room/
-14) room-config/
-15) room-guest/
-16) room-log/
-17) room-log-device/
-18) room-staff/
-19) typeorm/
+1. device/
+2. device-config-all-stm-free-function/
+3. device-config-all-stm-modüle-partition/
+4. device-config-all-stm-modüle-partition-pair/
+5. device-config-all-stm-modüle-partition-pair-condition/
+6. device-config-all-stm-modüle-partition-pair-condition-function/
+7. device-config-all-stm-modüle-partition-condititon/
+8. device-config-all-stm-modüle-partition-condititon-virtual/
+9. device-config-basic/
+10. device-config-knx/
+11. device-config-rs485/
+12. device-config-schematic/
+13. device-config-schematic-room/
+14. device-room/
+15. env/
+16. java-communication/
+17. otel-config/
+18. otel-config-bacnet/
+19. room/
+20. room-config/
+21. room-guest/
+22. room-log/
+23. room-log-device/
+24. room-staff/
+25. typeorm/
+
 ```
 
 ## Backend JavaStm32Communaction
@@ -133,7 +140,7 @@ Her bir alanımız için 3 yada 4 topic maksimum.
 Yaklaşık 12 topic falan olacaktı.
 
 Loglama ve dağıtık sistemleri kaleme alan bir çok tez var. Beğendiğim bazı kaynakları buraya bırakacağım. Bir çok farklı konuya değiniyor.
-[Murak Koca'nın Doktara tez çalışması]([https://www.google.com](https://tez.yok.gov.tr/UlusalTezMerkezi/TezGoster?key=RjZwH00oMG4iNa5Sgvlggz8LNOyM8hW0qnGPqs5nlNlSDJ9uEDbVwJwU2l8UYHpl))
+[Murak Koca'nın Doktara tez çalışması](https://tez.yok.gov.tr/UlusalTezMerkezi/TezGoster?key=RjZwH00oMG4iNa5Sgvlggz8LNOyM8hW0qnGPqs5nlNlSDJ9uEDbVwJwU2l8UYHpl)
 
 ## Klosör amaçları öncesi config mantığı 
 
@@ -183,26 +190,66 @@ Belirlenmiş string karşılıkları ile her özel duruma karşı bir bool değe
 Stm32 içerisindeki kodu değiştirmeden alınıp doğru bir şekilde işlenebilmesi.
 
 Örnek:
-"Bool:temizlikPozitif,TemizlikNegatif:Temizlik_durum", olarak stm32 ye iletildiğnide stm32 nin burada olan bilgileri Dp sine göre Temizlik_durum ile eşleştirmesi.
+"Bool:TemizlikPozitif,TemizlikNegatif:Temizlik_durum", olarak stm32 ye iletildiğnide stm32 nin burada olan bilgileri Dp sine göre Temizlik_durum ile eşleştirmesi.
+Bunu bir sensör gibi kendi içinde kaydetmesi. Daha sonra aynı başlıktan bir bilgi talep edebilir ve bir bilgi gönderebilir konumda olmuş olacak.
 
-ve bunu bir sensör gibi kendi içinde kaydetmesi. Daha sonra aynı başlıktan bir bilgi talep edebilir ve bir bilgi gönderebilir konumda olmuş olacak.
+Şu ana kadarki aşamalar ile yapabildikerimiz 
+- Herhangi bir sensör, aygıt'a istediğimiz bir şeyi yaptırabiliyor. Aldığımız verileri bool değerler yada istediğimiz ifadelere göre durumlarını oluşturabiliyoruz.
 
 Bu aşamalar başarılı şekilde yapıldıktan sonra oluşturduğumuz condititionların kendileride dahil olmak üzere diğer sensörleri aygıtları etkileyebilmesini sağlamak.
 
-Bu aşama için yapılması gerekilenler.
-- VarlıkSensörüPozitif 
+Bu aşama için yapılması için gerekilenler.
+Şuan bir knx uyumlu bir klimayı göz önüne alalım içerisinde bir den fazka fonksiyonu destekleyebilen bir yapı var. Stm32 içerisinden bu aygıta bir veri göndereceğimiz zaman bize sağladığı özellikleri kullanırız.
+Burada hangi fonksiyonu hangi DP ile kullanmamız gerektiği bellidir yada diğer aygıtlar içinde aynısı düşünülebilir nasıl bir aygıt olursa olsun hangi mesajı/veriyi gönderdiğinizde ne olması gerektiğni bilirsiniz.
+Eğer bunu yapabiliyorsanız. Bunu isimlendirebilirsinizde demek oluyor.
+Zaten bu verileri configin içerisine gömmüştüm. STM32 içerisindede aldığım config verilerine göre bu aygıta istediğimi yaptırabilecek yetkinliğe sahip kodlarım var. Varsayım tabiki :)
 
-Bu aşama içinde daha önceden belirlenmiş stm32 içerisinde tanımlamış olmamız ve bunları alacakları parametreleri ile databasemize kaydetmemiz gerekir.
+Tek yapmam gereken hangi durumda hangi işlemi yapması gerektiğini söylemek olacak.
 
-Örnek fonksiyon örneği.
-- Loger fonksiyonu. Alacağı parametreler. (char *)
-    Yapacağı iş 
+```
+"KNX-KLİMA"        - "Klima Aç, Klima kapat"               - {" SıcaklıkSıfır:condititonScıaklık0 ve  VarlıkSensörüSıfır:VarlıkSensörüPozitif " ," SıcaklıkSıfır:condititonScıaklık0 ve  VarlıkSensörüSıfır:VarlıkSensörüPozitif "}
+sensör/aygıt ismi  - Backendde  tanımlanmış davranış. burada bir seçim yapabileceğiniz bir panel hayal edin frontendde    - condititonlar
+                     yapılan seçime göre arka planda databaseden gerekli bilgileri çekecek.
+```
+Aynı şekilde sanal sensörlere bağlı sanal condititonlarda eklenebilir.
 
 ### **Burada bahsedilen Config STM32 straterejisi nin çalışabilrliği test edilmiş ve çalışan bir algoritma ortaya konulmuştur. Ekonmoik kaygılardan dolayı paylaşılmayacaktır. C kodu olarak test edilmiş. STM32 ye geçirlilmemiştir. STM32 ye uyarlanabilecek şekilde düşünülerek kod'lar yazılmıştır**
+### **Yapıldı diye bahsedilen kısım. Uzun uzun anlattığım condititonlara bağlı olan yapıdır. Uzaktan bir şekilde sanki stm32 den veri çekiliyor txt den zamana bağlı veriler çekilmiş. javadada nestjs den geliyormuş gibi el ile veriler Postmanden gönderdiğim bilgiler şeklinde stm32 ye iletilmiş c kodunda oluşturulmuş boş fonksiyonlar ile belirli durumlar gerçekleştiğinde çalışacak olan yapılar yapılmıştır. Oluşturulacak sensörlerin/aygıtların belirli bir knx dökümanı baz alınarak. el ile basit bir knx hattı oluşturulmuş. Basit sensörler/aygıtlar oluşturulmuş isimlendirmeler yapılmış. Algoritmanın doğru bir şekilde nasıl çalışacağı eksiklikleri ve database girilmesi gerekilen bilgiler netleştirilmiştir.**
 
 Tüm bu config aşamaları adlandırılıp kaydedilebecek şekilde tasarlanacak. Bir odada beğendiğiniz bir configi istediğiniz odalara atayabilme.
 
-## Sistem Tasarımı
-- Tüm backend yapısı mikro servis mimarisi üzerine kurulu.
-- Elektronikte planlanan haberleşme protokolleri. KNX RS485 I2C Bacnet Gateway
+## Dökümantasyon
+- Nestjs için swagger
+- javalar için Javadoc
+- c kodları için Doxygen (çoğunlukla boş fonksiyonlar ve structların yapıları için bilgi verecek)
 
+## Haberkeşme yapısı.
+Next.js               - NestJS                               Ssl Http - Socket
+Next.js               - JavaLoger                            Socket
+Nestjs                - JavaLoger                            Topic Http
+Nestjs                - JavaStm32Communaction                Socket
+JavaStm32Communaction - JavaLoger                            Topic Http
+JavaStm32Communaction - Stm32                                Ssl Socket
+
+## Database yapısı
+Database için PostgreSQL kullanılacak.
+- Database yapılarını içeren fotoğraflar yüklenecek. Düzenlemelerini yaptıktan sonra.
+- Tamamı olmasada küçük bir kısmı inşa edildi.
+
+## Sistem Entegrasyon
+Planlanan yapı her başlık bir docker olarak kaldırılacak. Diğerler ile bağlantılar env dosyaları ile yönetilecek. Bir VMDK dosyası halinde image olarak taşıması yapılacak.
+Olası çökme durumlarda müdhale edecek yapıları docker araçlarını kullanarak yapma. Veri yedekleme konuları için bir VMDK daha kaldırılıp ekstra önlem alınabilir. Belirli bir saat aralığında Database in yedeklenmesi.
+
+## Network
+Çok önemli bir başlık olmasına rağmen detaylı bir fikir yürüttemediğim bi konu. Kullancağım ağ sadece benim cihazlarımın haberleşmesi için olan bir ağ olduğundan, cihazlarımın kendi aralarında haberleşme gereksinimi duymamasından.
+Backend ile var olan yükün çoğu ilk bağlantı aşamsında yaşanacak ve daha sonrasındada verinin backende ulaşmasında bir aciliyet olmaması süreci yönetmeyi kolaylaştıracaktır. En kötünün kötü durumunda bile çok basit yöntemlerle sürecin olumsuz etkilenmemesi sağlanabilir. Örnek olarak cihazların backende bilgi göndermesi sıra ile gerçekleştirilebilir. ilk başta bir istek atarlar istekler sıraya koyulur. O sıraya göre veri gönder emri verilir.
+Bu şekilde Backenden gelecek olan bir veriyi de hızlı bir şekilde transfer edebilirim.
+
+## Güvenlik
+Java Stn32 arasında olan bağlantı SSL ile sağlanacak. Açık Anahtarlı Şifreleme yöntemide kullanılarak veri iletimi yapılacak.
+Web için standart olan tüm güvenlik önlemleri alınacak. JWT vs 
+Firewall Kullanımı gibi basit önlemlerde alınacak. Güvenli ağ bağlantıları ile sadece izin verilen ağ ların ulaşabilmesi sağlanacak.
+
+## Sistem inşa süreç önizleme
+
+1) as
