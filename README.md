@@ -41,12 +41,12 @@ Bu başlık altında yapmış olduğum tasarımları. Bakış açımı. Bir sist
 
 Sistemin frontend kısmındaki tasarımlarını burada yürüttüğüm mantık altında şekkillendiriyor olacağız.
 
-
 ### Başlıkların detaylandırılıp içlerinin doldurulması
 
 ## Frontend
 Sadece kurgu çalışması yapıldı
 Kurgu ile ilgili detaylar. Frontend klosörü içerisinde bulabilirsiniz.
+Bir tasarım çalışması yapılmadı. 
 
 ## Bacnkend NestJS
 ```
@@ -153,12 +153,13 @@ Configlerimiz 3 ana aşamadan oluşacaktı.
     - Rs485 uyumlu cihazlar için bir şematik oluşturma.
     - Normal aygıtlar için bir şematik oluşturma.
     - İnput ve Output cihazlarının eşleştirilmesi.
-Burada bahsedilen şematikerin amacı var olan aygıt sıralamasını öğrenerek isimlendirmesini yapılabilmesi bunu yaparak daha sonradan her odaya özgü tasarımlar yapabilir. Normal aygıtlar için hangi pine bağlanabileceklerini oteldeki kurulumu yapan kişiye bildirilmesi. KNX ve RS485 hatları için fiziksek adres gibi özelliklerin stm32 içerisinde doğru bir şekilde configüre edilebilmesini sağlanabilmesi. Web arayüzü üzerinden hiç otelde bulunmadan. Gerekli düzenlemelerin yapılabilmesinin sağlanabilmesii. İlk kurulum için işleri hızlandırma ve 900 odalı oteller gibi yerler için kullanılabilir bir sistem tasarlamayı mümkün hale getirmesi. İlk kurulumdan sonraki süreçte istenildiği anda ek cihaz eklenip cihaz devre dışı bırakılabilmesinin sağlanabilmesi.
-4) Her odaya özgü istenilen yetkinliklerin kazandıralabilmesi amaçlı zaman config ayarlaması.
+Burada bahsedilen şematikerin amacı var olan aygıt sıralamasını öğrenerek isimlendirmesini yapılabilmesi bunu yaparak daha sonradan her odaya özgü tasarımlar yapabilir. Normal aygıtlar için hangi pine bağlanabileceklerini oteldeki kurulumu yapan kişiye bildirilmesi. KNX ve RS485 hatları için fiziksel adres gibi özelliklerin stm32 içerisinde doğru bir şekilde configüre edilebilmesini sağlanabilmesi. Web arayüzü üzerinden hiç otelde bulunmadan. Gerekli düzenlemelerin yapılabilmesinin sağlanabilmesii. İlk kurulum için işleri hızlandırma ve 900 odalı oteller gibi yerler için kullanılabilir bir sistem tasarlamayı mümkün hale getirmesi. İlk kurulumdan sonraki süreçte istenildiği anda ek cihaz eklenip cihaz devre dışı bırakılabilmesinin sağlanabilmesi.
+4) Her odaya özgü istenilen yetkinliklerin kazandıralabilmesi amaçlı condititonların ayarlanması.
    - Örnek olarak odada bulunan ışıkların müşteri varken ve yokken gibi durumlar ile birlikte zaman ayarlamarının yapılabilmesi. (müşteri odadan çıktıktan 10 dakika sonra açık ışıkları kapatmak)
    - Klima, perde vs tüm cihazlar için tek tek zaman ayarlamaları.
+   - Her cihazın çıktısının yada inputunun adlandırılarak işlenebilir hale getirilmesi.
 
-Burada bahsedilmesi gerekilen bir başka staratereji.
+Burada bahsedilmesi gerekilen bir başka stratereji.
 STM32 içiresinde oluşturacağımız. Sensör yapısnın burada bahsedilen config yapsınıa nasıl uyarlanacağı.
 
 En basit şekilde anlatmak istenilirse. Hem geliştirilebilirliği sağlamak ve kolay bir şekilde yönetebilmek amaçlı.
@@ -179,22 +180,22 @@ Varlık sensörünün hangi tür olduğu ve hangi sıra ile bağlandığı bilgi
 Şimdiye kadarki aşamlarda stm32 miz Odalarda hangi sensörlerin olduğunu. İsimlerini konumlarını oluşturacakları durumların isimlendirlmesini uzaktan bir şekilde işlemiş olacağız.
 
 Sanal Sensörler.
-Bu aşamaya kadar elimizde olan sensörlerin oluşturacağı durumları Bool değerler olarak Map yapısına benzer şekilde alabiliyoruz.
+Bu aşamaya kadar elimizde olan sensörlerin oluşturacağı durumları index değerler olarak Map yapısına benzer şekilde alabiliyoruz.
 Bu noktada başka bir ihtiyaç doğuyor. Sürekli bir şekilde almadığım verilerin condititonlarına ihtiyaç duyuyor oluşum.
 Mesala bir özel müşterinin yada otelde çalışan elemanların bir işlemin condititonlarımı etkilemesi gerekliliği. Örnek temizlik mesajı personele iletildi ama temizlik yapılmadı. Bu durum benim sensörlere emir gönderirken dikkat etmem gereken bir özel durum oluşturabilir.
 
-Bunuda Sanal Sensör adını verdiğim yapılar sayesinde yapacağız.
+Bunada Sanal Sensör adını verdiğim yapılar sayesinde yapacağız.
 İlk başta boşta duran fonksiyonlardan söz etmiştik. 
 Burada backenden bilgi talep et gibi özel bir fonksiyon olabilir. 
-Belirlenmiş string karşılıkları ile her özel duruma karşı bir bool değerin 
+Belirlenmiş string karşılıkları ile her özel duruma karşı bir index değerin 
 Stm32 içerisindeki kodu değiştirmeden alınıp doğru bir şekilde işlenebilmesi.
 
 Örnek:
-"Bool:TemizlikPozitif,TemizlikNegatif:Temizlik_durum", olarak stm32 ye iletildiğnide stm32 nin burada olan bilgileri Dp sine göre Temizlik_durum ile eşleştirmesi.
+"index:TemizlikPozitif,TemizlikNegatif:Temizlik_durum", olarak stm32 ye iletildiğnide stm32 nin burada olan bilgileri Dp sine göre Temizlik_durum ile eşleştirmesi.
 Bunu bir sensör gibi kendi içinde kaydetmesi. Daha sonra aynı başlıktan bir bilgi talep edebilir ve bir bilgi gönderebilir konumda olmuş olacak.
 
 Şu ana kadarki aşamalar ile yapabildikerimiz 
-- Herhangi bir sensör, aygıt'a istediğimiz bir şeyi yaptırabiliyor. Aldığımız verileri bool değerler yada istediğimiz ifadelere göre durumlarını oluşturabiliyoruz.
+- Herhangi bir sensör, aygıt'a istediğimiz bir şeyi yaptırabiliyor. Aldığımız verileri index değerler yada istediğimiz ifadelere göre durumlarını oluşturabiliyoruz.
 
 Bu aşamalar başarılı şekilde yapıldıktan sonra oluşturduğumuz condititionların kendileride dahil olmak üzere diğer sensörleri aygıtları etkileyebilmesini sağlamak.
 
@@ -252,4 +253,8 @@ Firewall Kullanımı gibi basit önlemlerde alınacak. Güvenli ağ bağlantıla
 
 ## Sistem inşa süreç önizleme
 
-1) as
+## Klosör yapıların var oluş amaçları.
+
+## Sistem tasarımnın eksiklikleri
+## Hiç bahsedilmemiş düşünülmemiş kısımlar.
+
