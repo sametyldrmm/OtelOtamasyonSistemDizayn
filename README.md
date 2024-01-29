@@ -1,5 +1,4 @@
 # Otel Otomasyon Taslağı
-Bir otel otomasyon sistemi tasarımı için başlangıç çalışmaları. Daha önce fiyatını verdiğimiz fakat alamadığımız bir iş için yarıda kesilmek zorunda kalan bir çalışmadır. Yine de yaptığım çalışmaları paylaşacağım. Projede beraber ilerlemek isteyen elektronik bilen, web bilen, STM32, mobil kodlayabilecek arkadaşlar ulaşırlarsa beraber ilerleyebiliriz.
 
 ## Genel Amaç ve Yapılacaklar
 - Bir otelde bulunan tüm odaların akıllı hale getirilerek sistemlerin otonom beceri kazanmalarını sağlamak.
@@ -204,10 +203,6 @@ Aynı
 
 ---
 
-Metnin bu versiyonu, yazım hatalarını düzelterek ve ifadeleri daha net hale getirerek güncellenmiştir.
-### **Burada bahsedilen Config STM32 straterejisi nin çalışabilrliği test edilmiş ve çalışan bir algoritma ortaya konulmuştur. Ekonmoik kaygılardan dolayı paylaşılmayacaktır. C kodu olarak test edilmiş. STM32 ye geçirlilmemiştir. STM32 ye uyarlanabilecek şekilde düşünülerek kod'lar yazılmıştır**
-### **Yapıldı diye bahsedilen kısım. Uzun uzun anlattığım condititonlara bağlı olan yapıdır. Uzaktan bir şekilde sanki stm32 den veri çekiliyor txt den zamana bağlı veriler çekilmiş. javadada nestjs den geliyormuş gibi el ile veriler Postmanden gönderdiğim bilgiler şeklinde stm32 ye iletilmiş c kodunda oluşturulmuş boş fonksiyonlar ile belirli durumlar gerçekleştiğinde çalışacak olan yapılar yapılmıştır. Oluşturulacak sensörlerin/aygıtların belirli bir knx dökümanı baz alınarak. el ile basit bir knx hattı oluşturulmuş. Basit sensörler/aygıtlar oluşturulmuş isimlendirmeler yapılmış. Algoritmanın doğru bir şekilde nasıl çalışacağı eksiklikleri ve database girilmesi gerekilen bilgiler netleştirilmiştir.**
-
 Tüm bu config aşamaları adlandırılıp kaydedilebecek şekilde tasarlanacak. Bir odada beğendiğiniz bir configi istediğiniz odalara atayabilme.
 
 ## Dökümantasyon
@@ -249,3 +244,4 @@ Firewall Kullanımı gibi basit önlemlerde alınacak. Güvenli ağ bağlantıla
 ## Sistem tasarımnın eksiklikleri
 ## Hiç bahsedilmemiş düşünülmemiş kısımlar.
 
+Vakit buldukça ekleme yapmaya devam edeceğim.
