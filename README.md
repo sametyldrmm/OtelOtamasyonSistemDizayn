@@ -1,7 +1,3 @@
-Elbette, metninizi yazım hatalarını gidererek düzelteceğim. İşte düzeltilmiş metin:
-
----
-
 # Otel Otomasyon Taslağı
 Bir otel otomasyon sistemi tasarımı için başlangıç çalışmaları. Daha önce fiyatını verdiğimiz fakat alamadığımız bir iş için yarıda kesilmek zorunda kalan bir çalışmadır. Yine de yaptığım çalışmaları paylaşacağım. Projede beraber ilerlemek isteyen elektronik bilen, web bilen, STM32, mobil kodlayabilecek arkadaşlar ulaşırlarsa beraber ilerleyebiliriz.
 
