@@ -104,9 +104,7 @@ Sadece kurgu çalışması yapıldı. Kurgu ile ilgili detaylar, Frontend klasö
 En önemli kısımlarımız Java STM32 Communication ve Backend NestJS kısımlarımız. Bu iki kısım, tüm sistemin nasıl şekilleneceğini gösteriyor. Anlatımı kolaylaştırması açısından sadece klasörleri bıraktım.
 
 ## Backend Logger - Java Apache Kafka
-Bu kısımın var olmasının sebebi, sistemin geliştirilebilirliğinin başarılı bir şekilde inşa edilebilmesidir. Var olan sistem loglarının tek bir elden yönetilebilmesini sağlayan yapısı, veri merkezleri farklı bile olsa bunları birleştirmek, işlemek ve dağıtmak için kolaylık sağlar. Web etkinliklerini takip etmek, sistem içerisinde verinin nasıl bir yolculuk yaptığını takip etmek, her bir anın ne kadar fazla yük oluşturursa oluştursun yönetilebilmesini sağlamak gibi özellikleri vardır. Ancak, bu özelliklerin her birini farklı teknolojilerle de yönetebilirdik. Buradaki asıl amaç, daha sonra ot
-
-el sayıları çoğaldığında tüm verilerin ve logların uzak bir sunucuda tutulmasını istenirse, birden fazla otelin loglarının tek bir elden bir sunucuda işlenmesi için sunduğu kolaylıktır.
+Bu kısımın var olmasının sebebi, sistemin geliştirilebilirliğinin başarılı bir şekilde inşa edilebilmesidir. Var olan sistem loglarının tek bir elden yönetilebilmesini sağlayan yapısı, veri merkezleri farklı bile olsa bunları birleştirmek, işlemek ve dağıtmak için kolaylık sağlar. Web etkinliklerini takip etmek, sistem içerisinde verinin nasıl bir yolculuk yaptığını takip etmek, her bir anın ne kadar fazla yük oluşturursa oluştursun yönetilebilmesini sağlamak gibi özellikleri vardır. Ancak, bu özelliklerin her birini farklı teknolojilerle de yönetebilirdik. Buradaki asıl amaç, daha sonra otel sayıları çoğaldığında tüm verilerin ve logların uzak bir sunucuda tutulmasını istenirse, birden fazla otelin loglarının tek bir elden bir sunucuda işlenmesi için sunduğu kolaylıktır.
 
 ### Oluşturulacak Topicler
 Bu kısım için henüz bir planlamam yok. Ancak, başlıkların neler olacağına ve nelere dikkat edilmesi gerektiğine dair bir planlama yapmış bulunmaktayım.
