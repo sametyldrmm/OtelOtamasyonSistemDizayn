@@ -1,3 +1,5 @@
+İş başvuruları yapmam sebebi ile repo public durumda fakat içerikler daha düzenlenmiş bir şekilde değil.
+
 # Otel Otomasyon Taslağı
 
 ## Genel Amaç ve Yapılacaklar
