@@ -23,9 +23,7 @@
 Otelimizin her odasının yapısının farklı olduğunu düşünelim. Her odada KNX uyumlu, RS485 uyumlu cihazlarımız var. Varlık sensörleri, lamba, klima gibi farklı yapılarımız mevcut. Böyle bir otelde her odaya uygun şekilde çalışabilecek odaların kontrollerini sağlamak en genel amacımızdır. Bir örnek vermek gerekirse:
 - Bir müşteri odadan çıktıktan sonra lambaları otomatik kapatacak. Klimayı otomatik kapatacak bir sistem istiyorsunuz. Müşteri odadan çıkmadan önce telefonunda odanın temizlenmesini isteyebilmeli ve müşteri odadan çıktıktan sonra bu işle ilgilenen personele otomatik bir bildirim gitmeli.
 - Müşteri telefonunda odadaki herhangi bir lambayı veya klimanın ayarını değiştirebilmeli. Tüm bunları ve daha fazlasını yapabilecek bir sistem.
-- Otel
-
-in içerisindeki enerji verimliliğini takip ederek gelecekte daha yaşanabilir ve tasarruflu sistemlerin tasarlanabilmesini sağlamak için tüm bu sistemlerin izlenip raporlanabilmesi.
+- Otelin içerisindeki enerji verimliliğini takip ederek gelecekte daha yaşanabilir ve tasarruflu sistemlerin tasarlanabilmesini sağlamak için tüm bu sistemlerin izlenip raporlanabilmesi.
 - Oteldeki çalışanların yönetilebilmesini sağlayabilecek yapıya göre sistem tasarımı. Daha sonra eklenebilir olmalı.
 
 ## Not
@@ -102,6 +100,7 @@ Sadece kurgu çalışması yapıldı. Kurgu ile ilgili detaylar, Frontend klasö
 │   └── test
 ....
 ```
+C kodları içinde bu şekilde dosya yapıları verilecek .h dosyaları ve .c dosya isimleri klosör yapıları. Daha sonra.
 
 En önemli kısımlarımız Java STM32 Communication ve Backend NestJS kısımlarımız. Bu iki kısım, tüm sistemin nasıl şekilleneceğini gösteriyor. Anlatımı kolaylaştırması açısından sadece klasörleri bıraktım.
 
@@ -220,6 +219,10 @@ Tüm bu config aşamaları adlandırılıp kaydedilebecek şekilde tasarlanacak.
 
 ## Database yapısı
 Database için PostgreSQL kullanılacak.
+- Javanın ve Nestjs in db leri farklı db ler olacak. Javanın db sinde stm32 ve oda ile alakalı bilgiler duracak. Nestjs nin databasinde kullanıcılar ile ilgili bilgiler duracak. Web içerisinde olacak olan işlemler için gerekli bilgiler.
+- Nestjs hem Javanın db sine bağlanacak hem kendi db sine. Yerine göre ikisinide kullanacak.
+- Otele ait bilgiler Otelin apileri aracaılığı ile alınacak. NestJs içerisinde yapılacak.
+
 - Database yapılarını içeren fotoğraflar yüklenecek. Düzenlemelerini yaptıktan sonra.
 - Tamamı olmasada küçük bir kısmı inşa edildi.
 
@@ -238,8 +241,81 @@ Web için standart olan tüm güvenlik önlemleri alınacak. JWT vs
 Firewall Kullanımı gibi basit önlemlerde alınacak. Güvenli ağ bağlantıları ile sadece izin verilen ağ ların ulaşabilmesi sağlanacak.
 
 ## Sistem inşa süreç önizleme
+Şimdiye kadar yaptığım planlamar ve kendi başıma yürüttüğüm süreç içerisinde. Kol adını verdiğim bir verinin fronttendden stm32 ye kadarki süreicin nestjs, javaSTM32 communaction, c test kodlarını yazmaktan ibaret.
+Genel olarak sıralama ilk test aşamalarında.
+Postman -> Nestjs -> JavaStm32Communaction -> c test kodu şeklinde olacak.
+           Nestjs -> JavaLogger
+                    JavaStm32Communaction -> JavaLogger
+Ve bu sıralamanın ters bağlantıları.
+- İlk olarak yapılması gerekilen şey genel yapının neye benzeyeceğinin iyice oturtulması.
+- Daha sonrasıda birbirinden bağımsız parçaların ikili haberleşmelerini yapmak.
+- Daha sonra birbirleri üzerinden haberleşmelerin yapılması ve Logger üzerinden takip edilmesi.
+
+** Bu kısımda herşeyi bir bütün gibi ele alarak parçalamak gerekir.**
+
+### Genel Yapının anlaşılması
+Bu aşamada kastettiğim şey yazı ile anlatılması çok zor bir şey. Şematikler ile çalışıyorum kendim. İlk başta şematiklerini çizip üzerlerinden gerekli class yapılarını ve dosya yapılarını belirliyorum. 
+Tüm şematiklerimi ekleyeceğim. Şuan için düzenlenmeleri gerektiği için buraya atamıyorum.
+
+İlk olarak anlaşılması gerekilen şey JavaStm32 communaction a neden ihtiyaç olunduğu. NestJS üzerindende yapamazmıydık. Aslında süreci uzatan bir başlık.
+
+Kendimce sebeblerim.
+- Java yapısının c ile haberleşmeye daha uygun olduğunu düşünmem.
+- İşi planlama aşamsında iyi bir şekilde parçalayabilmek.
+- Mikro servis mantığına uygun bir yapı hazırlayabilmek için Nestjs de ki yükü hafifletiyor. İnşa sürecinde var olan yapılacakları. Parça parça inşa edebilmek ve kontrolü kaybetmememk.
+- İnşa sürecinde ekibimde olacak kişilerin javaya daha çabuk adapte olabileceklerini düşünmem.
+- Hataları minimalize etmek istiyor oluşum. Olası bir Stm32 ile bağlantı kesilmesi. Çökme gibi durumların yaşanabilecek oluşu. Stm32 lerde sistemden kopma gibi durumlar ele daha çok alnacağı için. Testlerimizi parça parça hızlı bir şekilde gerçekleştiriyor olabileceğiz.
+
+### Öncelik verilmesi gerekilen durumlar
+- Java içerisinde ve stm32 içerisinde kullanabileceğimiz. Muhtemel veri yapılarının elimden geldiğince planlama aşamasında belirleyebilmek istemem.
+- Sistemin ana odağı Stm32 lere göndermeyi planladığımız. Config mantığı olacağı için. Verilerin içine alınabileceği yapılar içleri boş dahi olsa belirlenebilmesi.
+- Config mantığının algoritmasını belirleyebilmek. Düşüncelerimizin çalışacağından mümkün olduğunca emin olmaya çalışmak. Bunun için yaklaşık 5k satır kod ile c testlerini yaptım. Burada yukarıda ve aşşağıda(c test kodu) bahsettiğim config mantığının çalışabilirliğilğiin test ettim.
+- Birbirleri ile haberleşecek yapıların haberleşme yapılarının belirlenmesi.
+- Confiğin son aşaması olan aygıtların/ sensörlerin birbirleri ile etkileşimlerini ve ona göre case event yapılarını inşasını ilk başta c test kodunda da yap. Daha sonra bunların test edilebilmesi için yapıları oluştur.
+
+  ## Buradaki aşamanın gerçekleşmesi için adımlar.
+    ### C aşamaları
+
+  Bu aşamada amacımız sensörleri birden fazla fonksiyonu destekleyecek. Farklı yapılarda olabilecek şekilde. Her bir sensörün bir liste belirtebilecek şekilde inşa edilmesi gerekiyor. Sensörlerin ürettikleri veriler tek bir adres üzerinden yönetilebilmeli. Her oluşturulacak sensör çıktılarının typelarını belirtebilecek yapıların oluşturulması. Aynı şekilde inputlarında veri türlerinin belirlenebileceği yapıların hazırlanması gerekir.
+   
+  - Sensörleri/Aygıtlar oluştur. Bunu yaparken isimlendirebildiğinden emin ol. Sadece KNX RS485 ve Basic sensörlerin olduğunu varsay. Her bir sensör kendi içinde daha fazla sensör fonksiyon barındırabilmeli. Her birinin farklı türleri olabilmeli.
+  - Bu sensör ve aygıtların oluşturulabilmesi aşamasını test et. Memory leak hiç bir şekilde kabul edilemez. Herhangi bir çökme herhangi bir şekilde kabul edilemez.
+  - İlk başta sıralı işlemlerden oluşan bir yapı kur. Verileri bir txt den çek.
+  - Daha sonra bir sürekli döngü kur. Birden fazla txt ile birden fazla kere sensör ekle farklı şekillerde ve sıralamalarda.
+  - Artık veri değiştirme ve kontrol aşamalarının yapılması gerekir. Sıralı işlemeler ile sensör ekle. Sensör verilerini değiştir. Bir başka txt ile belirli bir süreli test yap. Memory leak kontrolleri yap.
+  - Condititon yapılarını yapmak için elimizde input verisi olarak belirldeğimiz türlere göre fonksiyonlar yaz. (istenilen değer (karşılaştırma durumu) elimizde olan değer = isimlendirlimiş durum / index)
+  - Her bir sensörün verisinin birden fazla conditionu destekleyebilmesini sağla.
+  - Condititonların out türlerini belirle ve isimlendir. (Mesala dijital veri türü için istenilen değere /eşit,altında üstünde) her bir sensör output ve input için tek tek belirlenecek ve isimlendirilecek.
+  - Condititonları txt den çekilecek şekille getir. Her bir sensör verisinde birden fazla olabilecek yada olmayacak şekilde çalışabilmeli.
+  - Sensör oluştur. Condititon oluştur. Condititonları sensörlere bağla. Condition outlarının güncellenen her bir veri için değişmesini sağla.
+  - Şimdiki adımda farklı sensörlerin condititonlarını bir birleri ile etkileşime sokacak yapıları yap. ( Zaten isimlendirmiştik isimler üzerinden ve/veya bağlaçlarını kullanan string üzerinden parse ederek bir değer oluştur) (uzaktan kontrol edilebilen if else yapılarına benzeyecek)
+  - Sanal sensörler oluştur. Sanal sensör olduğunu belli eden Sanal Sensör tiplerine ekle. Buradaki yapı için her bir stringin belirlsiz karşıkları olabilmeli örnek olarak backendden temizlik=temizlik_yapıldı,temizlik_yapılmadı gibi sürekli değişen veriler gelebilir. Backkendden yeni bir SanalSensör oluştur isteği gelebilir. Uygun yapıları yap. Sanal sensörlerin conditiionları Backendden belirleneceko yüzden Sanal Condititon verisi talep edebilecek yapıları kur.
+  - Sanal Condititonları gerçek sensörlerin birbirleri etkileşime girmesini sağlayan yapıya koy ve etkileşime girmelerini sağla.
+  - Genel test et.
+  - Her bir sensör verisi için atadığımız condittionlar ve etkileşimini sağlayabildiğimiz yapıları tek bir yapıda birleştir. Her bir sensör verisi için oluşturulmuş condititonları tek bir isim ile birleştir. ve bir değer oluştur.
+  - Artık oluşturduğumuz condititon yapıları için eventleri belirlememiz gerekiyor. Bunu yapabilmek için boş fonksiyonlar oluşturmalıyız. İsimlerini kaydetmeliyiz. (Örnek (Log oluştur) fonksiyonunu yaptık. İsmini kaydettik. void * türünde veri alıyor. içerisinde cast ediyoruz. Bir ana fonksiyonda fonksiyon isimlerine göre doğru fonksiyona yönlendirme yapmalıyız. Dedikki en basit şekilde. Varlık sensörü için bir daha önce varlık sensörü bilgileri config aşama 1 2 3 te almıştık dp sinide biliyoruz. Sensör olarak dijital bir değer verdiğini varsayalaım. Txt lerimiz ile 0:eşit:varlıkSensörüNegatif , 1:eşit:varlıkSensörüPozitif, şeklinde condititon vermiştik. şimdide varlıkSensörüPozitif:"Log oluştur" u verdik eğer varlıkSensörüPozitif gerçekleşir ise log oluştur fonksiyonunu çalıştrıracağız. Burada varlıkSensörüPozitif_ve_SıcaklıkPozitif: log oluştur da denebilirdi bu seferde bu 2 condititon "ve" durumuna göre incelenerek log oluştur çalıştırılmalı )  Bu fonksiyonlar diğer sensörler/aygıtlara emir göndermek içinde kullanılacak. Hem oda içinde Backendden bağımsız işlemler. Hemde backende bağımlı işlemler içinde kullanılacak.
+
+Bu aşamaların tamamı bittiğinde Config3 aşaması tamamlanmış olur. C tarafında Backend ile haberleşmeyi saymazsak ilk kurulması gerekilen yapı budur. Bundan sonrası burada txt ile yaptığımız her şeyin backend ile yapılması gerekir. Backend ile yapılırken dökümantasyonları oluşturacağız. Backendin buradaki configde ki görevleri en ince ayrıtnsına kadar yazılmalı. Bu yapıya göre Config 1,2,3 aşamlarıda yapılacak. O aşamalar Stm32 kodları içerisinde gerçkeleştirlecek. C test kodu görevi bitmiş olacak.
+
+
+Parça parça inşa
+- JavaStm32Communaction için dosya yapılarını belirle. İçleri boş dahi olsa. Tek tek classları oluştur. Hangi classın nereyle nasıl haberleşeceğini belirle. Env dosyaları gibi basit işlemleri yap. 
+- Java için gerekli implemantasyonları yap. (server , dökümantasyon ,json vs)
+- NestJs için gerekli implemantasyonları. (dökümantasyon , database vs) Env dosyaları gibi basit işlemleri yap. 
+- NestJs için tahminen kullanılabilecek. Veritabanı şematiğini oluştur. Bunlar için CRUD ve filitre gibi temel yapıları oluştur. Aralarındaki ilişkileri oluştur.
+- Java için ssl server oluştur. Serfikalarını oluştur. C için bir client oluştur ve bağlan.
+- Stm32 lerde kullanılması planan Açık Anahtarlı Şifreleme ya uygun java ve c kodlarını yaz. Javaya bağlanmaya engel teşkil eden durumlarda bağlantıya izin verme.
+- C test kodlarını inşa et.
+- Java ile c test kodlarını C test kodlarındaki aşamalara uyarak haberleştir.
+- Nestjs ile java yı socketleri kullanarak trigger yapılarını inşa et.Nestjs den gelecek bilgilere göre Java ile stm32 yi haberleştirecek yapıları yavaş yavaş inşa et.
+     İlk yapılacak olan aşama.
+  Stm32 lerin odalara bağlanabilmesini sağlayacak yapıları kurmak. Her bir stm32 bir odaya bağlı olup olmadığını belirtebilecek yapılara sahip olmalı. Eğer bağlanmaya engel olan bir yapı yok ise bir odaya bağlıysa bağlı olduğu odanın bilgilerini değilse ben bir odaya bağlı değilim bilgisin göndermeli. Java kodu kendi küçük databaseni kontrol etmeli ve bir odaya bağlı değil ise Nestjs e bir bildirim göndermeli. Nestjs gerekli yetkinliğe sahip kullanıcının bildirim paneline eklemeli. Basit bir fronttenden yada postmanden stm32 nin kurulu olduğu odanın bilgilerini göndermeli ve stm32 isimlendirmeli. Stm32 nin cevabını beklemeli Java ve kendi db sinde gerekli değişikliği yapmalı. 
+- Postman ile Nestjs e verileri gönder. Oluşan database i yavaş yavaş doldur. Gelen bilgielere göre nestjs in java ile haberleşecek yapılarını kullan.
+
+
 
 ## Klosör yapıların var oluş amaçları.
+C dosya yapılarıda eklenecek.
 
 ## Sistem tasarımnın eksiklikleri
 ## Hiç bahsedilmemiş düşünülmemiş kısımlar.
