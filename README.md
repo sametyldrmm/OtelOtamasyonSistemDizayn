@@ -274,7 +274,7 @@ Kendimce sebeblerim :
 ### Öncelik verilmesi gereken durumlar
 - Java içerisinde ve stm32 içerisinde kullanabileceğimiz. Muhtemel veri yapılarının elimden geldiğince planlama aşamasında belirleyebilmek istemem.
 - Sistemin ana odağı Stm32 lere göndermeyi planladığımız. Config mantığı olacağı için. Verilerin içine alınabileceği yapılar içleri boş dahi olsa belirlenebilmesi.
-- Config mantığının algoritmasını belirleyebilmek. Düşüncelerimizin çalışacağından mümkün olduğunca emin olmaya çalışmak. Bunun için yaklaşık 5k satır kod ile c testlerini yaptım. Burada yukarıda ve aşşağıda(c test kodu) bahsettiğim config mantığını test ettim.
+- Config mantığının algoritmasını belirleyebilmek. Düşüncelerimizin çalışacağından mümkün olduğunca emin olmaya çalışmak. Bunun için belli bir kısmınının c kodlarını yazıyor  ve testlerini yapıyorum. Burada yukarıda ve aşşağıda(c test kodu) bahsettiğim config mantığını test ettim.
 - Birbirleri ile haberleşecek yapıların haberleşme yapılarının belirlenmesi.
 - Confiğin son aşaması olan aygıtların/ sensörlerin birbirleri ile etkileşimlerini ve ona göre case event yapılarını inşasını ilk başta c test kodunda da yap. Daha sonra bunların test edilebilmesi için yapıları oluştur.
 
