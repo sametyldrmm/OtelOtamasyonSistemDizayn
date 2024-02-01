@@ -291,6 +291,8 @@ Kendimce sebeblerim :
   - Condition yapılarını yapmak için elimizde input verisi olarak belirldeğimiz türlere göre fonksiyonlar yaz. (istenilen değer (karşılaştırma durumu) elimizde olan değer = isimlendirlimiş durum / index)
   - Her bir sensörün verisinin birden fazla conditionu destekleyebilmesini sağla.
   - Conditionların out türlerini belirle ve isimlendir. (Mesala dijital veri türü için istenilen değere /eşit,altında üstünde) her bir sensör output ve input için tek tek belirlenecek ve isimlendirilecek.
+  - ![Bu noktada yapı buna benziyor](https://github.com/sametyldrmm/OtelOtamasyonSistemDizayn/blob/main/images/diagram0.png)
+  - Not kod yazmaya başlamadan önce ortaya çıkardığım yapıdır. Çok büyük bir değişiklik ortaya çıkmasada. Değişiklikler vardır. Son yapının hali düzenlendikten sonra atılacaktır. İlk planlamamdan oluşturduğum yapıyı yapay zekaya çizdirttim. Bunun bir database yapısı olduğunu düşündüğü için çizim üzerindeki işaretlere takılmayın. Genel yapı belli olabiliyor.
   - Conditionları txt den çekilecek şekille getir. Her bir sensör verisinde birden fazla olabilecek yada olmayacak şekilde çalışabilmeli.
   - Sensör oluştur. Condition oluştur. Conditionları sensörlere bağla. Condition outlarının güncellenen her bir veri için değişmesini sağla.
   - Şimdiki adımda farklı sensörlerin Conditionlarını bir birleri ile etkileşime sokacak yapıları yap. ( Zaten isimlendirmiştik isimler üzerinden ve/veya bağlaçlarını kullanan string üzerinden parse ederek bir değer oluştur) (uzaktan kontrol edilebilen if else yapılarına benzeyecek)
