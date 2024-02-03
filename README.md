@@ -349,19 +349,26 @@ C dosya yapılarıda eklenecek.
 Network konusunda eksikliklerimiz çok fazla. Yukarıda bir başlık var fakat yüzeysel geçilmiş bir kısım.
 Güvenlik önlemleri aldık fakat yeterliliği çok çelişkili bir durum.
 Loglama konusu kesinlikle yetersiz. Hem planlama kısmı için hemde uygulama durumu ve kontrol mekanizmaları.
+
 ## Hiç bahsedilmemiş düşünülmemiş kısımlar.
 Müşteri için en önemli olan Monitoring ve Reportlama kısımları. Çok fazla farklı yöntem ve sistem var. Bir çoğunun incelenip bir standartta karar verilmesi gerekiliyor.
 Hazır açık kaynak sistemler üzerine inşa etmek daha mantıklı olabilir.
-Sistem üzerindeki güç elektroniği. Bu kısım için bizim i
+Sistem üzerindeki güç elektroniği. Bu kısım için bizim için bir sorun teşkil etmiyordu çünkü rework bir sistem yapacaktık . Bu sebeble bizim için bir sorun teşkil etmiyordu.
+
 
 Vakit buldukça ekleme yapmaya devam edeceğim.
 Bu şekilde aşırı karışık olduğunu düşündüğüm için klosörleme yaparak ilerleyeceğim. 
 
-Projeyi muhtemelen çok uzun bir süre içerisinde bitirerek açık kaynak bir şekilde yayınlayacağım. Şuanki süreçte tek başıma ilerlediğim için. [Havelsan Liman](https://liman.havelsan.com.tr/) sistemi üzerinden web kısımlarını halletmeye çalışacağım. 
-Çok yararlı Açık Kaynak bir projedir. İncelemenizi tavsiye ederim.
+Projeyi muhtemelen çok uzun bir süre içerisinde bitirerek açık kaynak bir şekilde yayınlayacağım.
+
+Şuanki süreçte tek başıma ilerlediğim için.
+- Web arayüzü için [Havelsan Liman](https://liman.havelsan.com.tr/) sistemi üzerinden web kısımlarını halletmeye çalışacağım.  Çok yararlı Açık Kaynak bir projedir. İncelemenizi tavsiye ederim.
+- STM32 üzerinde kurulması gerekilen yapı. C test kodları ve web arayüzü üzerinden temel işlemleri halletiktten sonra başlayacağım. Burada KNX gibi sensörlerin fiyatları çok yüksek olduğu için KNX daha sonraya kalacaktır. Başlangıçta standart sensörlerle , RS485 gibi hemen hemen her yerde kullanılan farklı haberleşme protokkellerini destekeyen farklı cihazları kullandıkça bir kütüphane mantığı gibi her cihazı web arayüzünden tamamen yönetibldiğimiz bir yapı kurmaya hedefleyeceğim.
+- NestJs için yazdığım yapıları kullanmanın mantıklı bir açıklamasını bulabilirsem kullanmak işime gelir ama Havelsan Liman sistemi üzerinden yeni yapılar ile yapmak daha doğru gibi geliyor.
+- Java için planlamalarım olduğu gibi kalacak. 
 
 ## Havelsan Liman Sunucu Sistemi
-Daha önce katıldığım Havelsan Açık Kaynak kampında görmüş ve öğrenmiş olduğum bir sistem. Çok sayıda avantajı olan süreçleri çok hızlandırabilecek bir sistem. Eklenti adı verdikleri yapılar var. Bu yapılar ile hemen hemen her işleminizi kolay bir şekilde halledebiliyorsunuz. Bu eklentileri geliştirmeyi kolaylaştırmak adınada bir çok APİ sağlamışlar. Kullanıcı işlemleri gibi bir çok güvenlik ve uğraş gerektiren kısmı basit bir şekilde panel üzerinden dahi halledebiliyorsunuz. Verilerinizi görselleştirmeyi ve üzerlerinde işlem yapmanızı sağlayan yapılarda mevcut. Ben web tarafında var olan zorlukları UI kötü bile olsa isteklerimi yerine getiren yapıları bu hazır sistem üzerinden hallederek prototip tarzı bir sistem geliştirmeyi hedefliyorum şimdilik. 
+Daha önce katıldığım Havelsan Açık Kaynak kampında görmüş ve öğrenmiş olduğum bir sistem. Çok sayıda avantajı olan süreçleri çok hızlandırabilecek bir sistem. Eklenti adı verdikleri yapılar var. Bu yapılar ile hemen hemen her işleminizi kolay bir şekilde halledebiliyorsunuz. Bu eklentileri geliştirmeyi kolaylaştırmak adınada bir çok APİ sağlamışlar. Kullanıcı işlemleri gibi bir çok güvenlik ve uğraş gerektiren kısmı basit bir şekilde panel üzerinden dahi halledebiliyorsunuz. Verilerinizi görselleştirmeyi ve üzerlerinde işlem yapmanızı sağlayan yapılarda mevcut. Ben web tarafında var olan zorlukları UI kötü bile olsa isteklerimi yerine getiren yapıları bu hazır sistem üzerinden inşa ederek prototip tarzı bir sistem geliştirmeyi hedefliyorum şimdilik. 
 
 Çok daha detaylı bir şekilde sistemi analtan bir yazı hazırlayacağım.
 
