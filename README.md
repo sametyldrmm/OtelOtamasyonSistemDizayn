@@ -26,11 +26,12 @@ Otelimizin her odasının yapısının farklı olduğunu düşünelim. Her odada
 - Otelin içerisindeki enerji verimliliğini takip ederek gelecekte daha yaşanabilir ve tasarruflu sistemlerin tasarlanabilmesini sağlamak için tüm bu sistemlerin izlenip raporlanabilmesi.
 - Oteldeki çalışanların yönetilebilmesini sağlayabilecek yapıya göre sistem tasarımı. 
 
+![](https://github.com/sametyldrmm/OtelOtamasyonSistemDizayn/blob/main/images/genel%20yapi.jpeg)
+![](https://github.com/sametyldrmm/OtelOtamasyonSistemDizayn/blob/main/images/haberlesme.jpeg)
 ## Not
 Bu başlık altında yapmış olduğum tasarımları, bakış açımı ve bir sistem tasarlanırken nelere dikkat ettiğimi göstereceğim. Yarıda kalan çalışmalar olması dolayısıyla bazı noktalarda eksiklikler olabilir.
 
 ### Başlıklar
-
 1) Frontend - Nextjs
 2) Backend DB - Restful API - Swagger - NestJS
 3) Backend Logger -                  Java Apache Kafka
@@ -226,7 +227,7 @@ Database için PostgreSQL kullanılacak.
 
 - Database yapılarını içeren fotoğraflar yüklenecek. Düzenlemelerini yaptıktan sonra.
 - Tamamı olmasada küçük bir kısmı inşa edildi.
-
+![](https://github.com/sametyldrmm/OtelOtamasyonSistemDizayn/blob/main/images/database.jpeg)
 ## Sistem Entegrasyon
 Planlanan yapı her başlık bir docker olarak kaldırılacak. Diğerler ile bağlantılar env dosyaları ile yönetilecek. Bir VMDK dosyası halinde image olarak taşıması yapılacak.
 Olası çökme durumlarda müdhale edecek yapıları docker araçlarını kullanarak yapma. Veri yedekleme konuları için bir VMDK daha kaldırılıp ekstra önlem alınabilir. Belirli bir saat aralığında Database in yedeklenmesi.
@@ -303,6 +304,7 @@ Kendimce sebeblerim :
   - Artık oluşturduğumuz Condition yapıları için eventleri belirlememiz gerekiyor. Bunu yapabilmek için boş fonksiyonlar oluşturmalıyız. İsimlerini kaydetmeliyiz. (Örnek (Log oluştur) fonksiyonunu yaptık. İsmini kaydettik. void * türünde veri alıyor. içerisinde cast ediyoruz. Bir ana fonksiyonda fonksiyon isimlerine göre doğru fonksiyona yönlendirme yapmalıyız. Dedikki en basit şekilde. Varlık sensörü için bir daha önce varlık sensörü bilgileri config aşama 1 2 3 te almıştık dp sinide biliyoruz. Sensör olarak dijital bir değer verdiğini varsayalaım. Txt lerimiz ile 0:eşit:varlıkSensörüNegatif , 1:eşit:varlıkSensörüPozitif, şeklinde Condition vermiştik. şimdide varlıkSensörüPozitif:"Log oluştur" u verdik eğer varlıkSensörüPozitif gerçekleşir ise log oluştur fonksiyonunu çalıştrıracağız. Burada varlıkSensörüPozitif_ve_SıcaklıkPozitif: log oluştur da denebilirdi bu seferde bu 2 Condition "ve" durumuna göre incelenerek log oluştur çalıştırılmalı )  Bu fonksiyonlar diğer sensörler/aygıtlara emir göndermek içinde kullanılacak. Hem oda içinde Backendden bağımsız işlemler. Hemde backende bağımlı işlemler içinde kullanılacak.
 
 Bu aşamaların tamamı bittiğinde Config3 aşaması tamamlanmış olur. C tarafında Backend ile haberleşmeyi saymazsak ilk kurulması gereken yapı budur. Bundan sonrası burada txt ile yaptığımız her şeyin backend ile yapılması gerekir. Backend ile yapılırken dökümantasyonları oluşturacağız. Backendin buradaki configde ki görevleri en ince ayrıtnsına kadar yazılmalı. Bu yapıya göre Config 1,2,3 aşamlarıda yapılacak. O aşamalar Stm32 kodları içerisinde gerçkeleştirlecek. C test kodu görevi bitmiş olacak.
+![](https://github.com/sametyldrmm/OtelOtamasyonSistemDizayn/blob/main/images/config3.jpeg)
 
 Anlatılan mantıklarda base olarak alınan design patern
 ## [Patterns in C Strategy](https://www.adamtornhill.com/Patterns%20in%20C%203,%20STRATEGY.pdf)
