@@ -1,5 +1,7 @@
 İş başvuruları yapmam sebebi ile repo public durumda fakat içerikler daha düzenlenmiş bir şekilde değil.
 
+Almaya çalıştığımız fakat bazı sebeblerden ötürü yaptığım çalışmaları gösteremediğim çalışmalarım. İmage klosöründeki "genel yapi.jpeg" adlı fotoğraf dışında firmanın başka bir yönlendirmesi yada yardımı olmamıştır. Aşağıda gösterdiğim çalışmalarımda . Yapı çok genel bir yapı olduğu için koymakta bir sakınca görmedim.
+
 # Otel Otomasyon Taslağı
 
 ## Genel Amaç ve Yapılacaklar
@@ -310,6 +312,13 @@ Anlatılan mantıklarda base olarak alınan design patern
 ## [Patterns in C Strategy](https://www.adamtornhill.com/Patterns%20in%20C%203,%20STRATEGY.pdf)
 Basit bir şekilde anlatan bir dökümanı bırakıyorum. Direk bir şekilde patterni almak yerine isimleri fonksiyonlarla eşleştirip. Fonksiyon açıklamalarını ve hangi durumlarda kullanılabileceği gibi durumları backendde düzenleyerek. Her sensöre uyumlu çlışabilen kod blokları elde etmiş oluyoruz. Elde ettiğimiz yapı ile bir başka avantaj bir başka projede RPC yöntemi kullanılmak isterse direk bir şekilde uyumluluğu sağlanabiir
 
+## Config 3 Aşaması Web Front
+Web kurgusu üzerinden anlatım yapılacak. Frontend klosöründe bulabileceksiniz.
+## Config 3 Aşaması Web NestJS
+Java ile haberleşmesi için kullanılacak trigger yapılarından söz edilecek.
+## Config 3 Aşaması JavaStm32Communaction
+Hangi bilgileri nasıl bir yapı ile birleştirirerek gönderileceği anlatılacak.
+
 Parça parça inşa
 - JavaStm32Communication için dosya yapılarını belirle. İçleri boş dahi olsa. Tek tek classları oluştur. Hangi classın nereyle nasıl haberleşeceğini belirle. Env dosyaları gibi basit işlemleri yap. 
 - Java için gerekli implemantasyonları yap. (server , dökümantasyon ,json vs)
@@ -324,10 +333,35 @@ Parça parça inşa
   Stm32 lerin odalara bağlanabilmesini sağlayacak yapıları kurmak. Her bir stm32 bir odaya bağlı olup olmadığını belirtebilecek yapılara sahip olmalı. Eğer bağlanmaya engel olan bir yapı yok ise bir odaya bağlıysa bağlı olduğu odanın bilgilerini değilse ben bir odaya bağlı değilim bilgisin göndermeli. Java kodu kendi küçük databaseni kontrol etmeli ve bir odaya bağlı değil ise Nestjs e bir bildirim göndermeli. Nestjs gerekli yetkinliğe sahip kullanıcının bildirim paneline eklemeli. Basit bir fronttenden yada postmanden stm32 nin kurulu olduğu odanın bilgilerini göndermeli ve stm32 isimlendirmeli. Stm32 nin cevabını beklemeli Java ve kendi db sinde gerekli değişikliği yapmalı. 
 - Postman ile Nestjs e verileri gönder. Oluşan database i yavaş yavaş doldur. Gelen bilgielere göre nestjs in java ile haberleşecek yapılarını kullan.
 
+## C Test Back İlk Bağlantı
+İlk bağlantı aşamasında ne gibi yapılar kullanılacak.
+
+## İş Akışı / Sürec İş Planlama
+Şimdiye kadar yapmış olduğum adım adım şekilde tüm sürecin (yapabildiğim kadarı ile)  yapabilabileceği şekilde adım adım progralamalarımı atacağım. Bir çok kısmını tek başıma test için inşa ettim çalışabilirliğinden emin olduğum kısımları atacağım.
+Bu planlamalar gerçek işin günün sonunda olması gerektiği şekilde planlanmaya çalıştı. Benim test/çalışabilirlilik için yaptığım kodlardan bağımsız tekrar inşa edilecek.
+Bunu burada değilde Direk iş akışı olarak adlandıracağım bir klosörde bulabileceksiniz.
+Jira Yönetim sistemi üzerinden programlama yapmış idim.
+
 ## Klosör yapıların var oluş amaçları.
 C dosya yapılarıda eklenecek.
 
 ## Sistem tasarımnın eksiklikleri
+Network konusunda eksikliklerimiz çok fazla. Yukarıda bir başlık var fakat yüzeysel geçilmiş bir kısım.
+Güvenlik önlemleri aldık fakat yeterliliği çok çelişkili bir durum.
+Loglama konusu kesinlikle yetersiz. Hem planlama kısmı için hemde uygulama durumu ve kontrol mekanizmaları.
 ## Hiç bahsedilmemiş düşünülmemiş kısımlar.
+Müşteri için en önemli olan Monitoring ve Reportlama kısımları. Çok fazla farklı yöntem ve sistem var. Bir çoğunun incelenip bir standartta karar verilmesi gerekiliyor.
+Hazır açık kaynak sistemler üzerine inşa etmek daha mantıklı olabilir.
+Sistem üzerindeki güç elektroniği. Bu kısım için bizim i
 
 Vakit buldukça ekleme yapmaya devam edeceğim.
+Bu şekilde aşırı karışık olduğunu düşündüğüm için klosörleme yaparak ilerleyeceğim. 
+
+Projeyi muhtemelen çok uzun bir süre içerisinde bitirerek açık kaynak bir şekilde yayınlayacağım. Şuanki süreçte tek başıma ilerlediğim için. [Havelsan Liman](https://liman.havelsan.com.tr/) sistemi üzerinden web kısımlarını halletmeye çalışacağım. 
+Çok yararlı Açık Kaynak bir projedir. İncelemenizi tavsiye ederim.
+
+## Havelsan Liman Sunucu Sistemi
+Daha önce katıldığım Havelsan Açık Kaynak kampında görmüş ve öğrenmiş olduğum bir sistem. Çok sayıda avantajı olan süreçleri çok hızlandırabilecek bir sistem. Eklenti adı verdikleri yapılar var. Bu yapılar ile hemen hemen her işleminizi kolay bir şekilde halledebiliyorsunuz. Bu eklentileri geliştirmeyi kolaylaştırmak adınada bir çok APİ sağlamışlar. Kullanıcı işlemleri gibi bir çok güvenlik ve uğraş gerektiren kısmı basit bir şekilde panel üzerinden dahi halledebiliyorsunuz. Verilerinizi görselleştirmeyi ve üzerlerinde işlem yapmanızı sağlayan yapılarda mevcut. Ben web tarafında var olan zorlukları UI kötü bile olsa isteklerimi yerine getiren yapıları bu hazır sistem üzerinden hallederek prototip tarzı bir sistem geliştirmeyi hedefliyorum şimdilik. 
+
+Çok daha detaylı bir şekilde sistemi analtan bir yazı hazırlayacağım.
+
