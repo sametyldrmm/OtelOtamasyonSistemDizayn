@@ -364,9 +364,7 @@ Projeyi muhtemelen çok uzun bir süre içerisinde bitirerek açık kaynak bir �
 Şuanki süreçte tek başıma ilerlediğim için.
 - Web arayüzü için [Havelsan Liman](https://liman.havelsan.com.tr/) sistemi üzerinden web kısımlarını halletmeye çalışacağım.  Çok yararlı Açık Kaynak bir projedir. İncelemenizi tavsiye ederim.
 - STM32 üzerinde kurulması gerekilen yapı. C test kodları ve web arayüzü üzerinden temel işlemleri halletiktten sonra başlayacağım. Burada KNX gibi sensörlerin fiyatları çok yüksek olduğu için KNX daha sonraya kalacaktır. Başlangıçta standart sensörlerle , RS485 gibi hemen hemen her yerde kullanılan farklı haberleşme protokkellerini destekeyen farklı cihazları kullandıkça bir kütüphane mantığı gibi her cihazı web arayüzünden tamamen yönetibldiğimiz bir yapı kurmaya hedefleyeceğim.
-- NestJs için yazdığım yapıları kullanmanın mantıklı bir açıklamasını bulabilirsem kullanmak işime gelir ama Havelsan Liman sistemi üzerinden yeni yapılar ile yapmak daha doğru gibi geliyor.
-- Java için planlamalarım olduğu gibi kalacak. 
-
+  
 ## Havelsan Liman Sunucu Sistemi
 Daha önce katıldığım Havelsan Açık Kaynak kampında görmüş ve öğrenmiş olduğum bir sistem. Çok sayıda avantajı olan süreçleri çok hızlandırabilecek bir sistem. Eklenti adı verdikleri yapılar var. Bu yapılar ile hemen hemen her işleminizi kolay bir şekilde halledebiliyorsunuz. Bu eklentileri geliştirmeyi kolaylaştırmak adınada bir çok APİ sağlamışlar. Kullanıcı işlemleri gibi bir çok güvenlik ve uğraş gerektiren kısmı basit bir şekilde panel üzerinden dahi halledebiliyorsunuz. Verilerinizi görselleştirmeyi ve üzerlerinde işlem yapmanızı sağlayan yapılarda mevcut. Ben web tarafında var olan zorlukları UI kötü bile olsa isteklerimi yerine getiren yapıları bu hazır sistem üzerinden inşa ederek prototip tarzı bir sistem geliştirmeyi hedefliyorum şimdilik. 
 
