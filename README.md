@@ -304,6 +304,10 @@ Kendimce sebeblerim :
 
 Bu aşamaların tamamı bittiğinde Config3 aşaması tamamlanmış olur. C tarafında Backend ile haberleşmeyi saymazsak ilk kurulması gereken yapı budur. Bundan sonrası burada txt ile yaptığımız her şeyin backend ile yapılması gerekir. Backend ile yapılırken dökümantasyonları oluşturacağız. Backendin buradaki configde ki görevleri en ince ayrıtnsına kadar yazılmalı. Bu yapıya göre Config 1,2,3 aşamlarıda yapılacak. O aşamalar Stm32 kodları içerisinde gerçkeleştirlecek. C test kodu görevi bitmiş olacak.
 
+Anlatılan mantıklarda base olarak alınan design patern
+## [Patterns in C Strategy](https://www.adamtornhill.com/Patterns%20in%20C%203,%20STRATEGY.pdf)
+Basit bir şekilde anlatan bir dökümanı bırakıyorum. Direk bir şekilde patterni almak yerine isimleri fonksiyonlarla eşleştirip. Fonksiyon açıklamalarını ve hangi durumlarda kullanılabileceği gibi durumları backendde düzenleyerek. Her sensöre uyumlu çlışabilen kod blokları elde etmiş oluyoruz. Elde ettiğimiz yapı ile bir başka avantaj bir başka projede RPC yöntemi kullanılmak isterse direk bir şekilde uyumluluğu sağlanabiir
+
 Parça parça inşa
 - JavaStm32Communication için dosya yapılarını belirle. İçleri boş dahi olsa. Tek tek classları oluştur. Hangi classın nereyle nasıl haberleşeceğini belirle. Env dosyaları gibi basit işlemleri yap. 
 - Java için gerekli implemantasyonları yap. (server , dökümantasyon ,json vs)
