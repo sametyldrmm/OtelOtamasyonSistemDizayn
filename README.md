@@ -308,8 +308,11 @@ Kendimce sebeblerim :
 Bu aşamaların tamamı bittiğinde Config3 aşaması tamamlanmış olur. C tarafında Backend ile haberleşmeyi saymazsak ilk kurulması gereken yapı budur. Bundan sonrası burada txt ile yaptığımız her şeyin backend ile yapılması gerekir. Backend ile yapılırken dökümantasyonları oluşturacağız. Backendin buradaki configde ki görevleri en ince ayrıtnsına kadar yazılmalı. Bu yapıya göre Config 1,2,3 aşamlarıda yapılacak. O aşamalar Stm32 kodları içerisinde gerçkeleştirlecek. C test kodu görevi bitmiş olacak.
 ![](https://github.com/sametyldrmm/OtelOtamasyonSistemDizayn/blob/main/images/config3.jpeg)
 
-Anlatılan mantıklarda base olarak alınan design patern
+Anlatılan mantıklarda base olarak alınan design paternler
 ## [Patterns in C Strategy](https://www.adamtornhill.com/Patterns%20in%20C%203,%20STRATEGY.pdf)
+## [Design Patterns for State Machines ](https://repositorio.uci.cu/jspui/bitstream/123456789/10139/1/Design%20Patterns%20for%20Embedded%20Systems%20in%20C_%20An%20Embedded%20Software%20Engineering%20Toolkit%20%28%20PDFDrive%20%29.pdf)
+İkinci Design Patterns for Embedded Systems isimli pdf'te Stm32 kodlar iken kullanabileceğimiz bir çok design pattern mevcut benim bu projede en çok ilgilendiğim kısım Design Patterns for State Machines kısmı olucak. Yukarıda anlattığım mantıkların test kodları bittikten sonra buradaki yapıların bizim sisteme uyarlanmış şekilleri ile devam edeceğiz. 
+
 Basit bir şekilde anlatan bir dökümanı bırakıyorum. Direk bir şekilde patterni almak yerine isimleri fonksiyonlarla eşleştirip. Fonksiyon açıklamalarını ve hangi durumlarda kullanılabileceği gibi durumları backendde düzenleyerek. Her sensöre uyumlu çlışabilen kod blokları elde etmiş oluyoruz. Elde ettiğimiz yapı ile bir başka avantaj bir başka projede RPC yöntemi kullanılmak isterse direk bir şekilde uyumluluğu sağlanabiir
 
 ## Config 3 Aşaması Web Front
